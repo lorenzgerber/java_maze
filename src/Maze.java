@@ -1,12 +1,16 @@
 /**
  * Created by loge on 13/04/16.
  */
+
+import java.io.File;
+
 public class Maze {
 
     private String mazeData;
 
-    public Maze(java.io.Reader){
+    public Maze(java.io.Reader in){
         //TODO constructor method for Maze
+        // TODO file read
     }
 
     public boolean isMovable(Position position){
@@ -23,5 +27,7 @@ public class Maze {
         //TODO method to
         return new Position(1,1);
     }
+
+    public
 
 }
