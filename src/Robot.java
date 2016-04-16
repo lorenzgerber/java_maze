@@ -28,28 +28,3 @@ public class Robot {
     }
 
 }
-
-public class MemoryRobot extends Robot {
-
-    public MermoryRobot(){
-
-    }
-
-    public void move(){
-        //TODO algorithm for memory robot, depth first search
-    }
-
-
-}
-
-public class RightHandRuleRobot extends Robot {
-
-    public RightHandfRuleRobot(){
-
-    }
-
-    public void move(){
-        //TODO algorithm for move Right hand rule
-    }
-    
-}
