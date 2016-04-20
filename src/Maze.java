@@ -24,7 +24,7 @@ public class Maze {
      */
     public Maze(java.io.Reader in){
 
-        this.mazeData = readMaze(in);
+        readMaze(in);
 
     }
 
@@ -61,7 +61,7 @@ public class Maze {
         return new Position(1,1);
     }
 
-    private Character[][] readMaze(java.io.Reader in){
+    private void readMaze(java.io.Reader in){
         try
         {
             int ch;
@@ -71,22 +71,22 @@ public class Maze {
             while ((ch = in.read()) != -1) {
                 char character = (char) ch;
                 if (ch == 10) {
-                    rows++;
+                    this.rows++;
                 } else {
-                    total++;
+                    this.total++;
                     buffer.add(character);
                 }
 
             }
 
-            columns = total/rows;
+            this.columns = this.total/this.rows;
 
             Iterator<Character> mazeIterator = buffer.iterator();
-            maze = new Character[rows][columns];
+            this.mazeData = new Character[this.rows][this.columns];
 
-            for (int iii = 0; iii < rows; iii++){
-                for (int jjj = 0; jjj < columns; jjj++){
-                    maze[iii][jjj] = mazeIterator.next();
+            for (int iii = 0; iii < this.rows; iii++){
+                for (int jjj = 0; jjj < this.columns; jjj++){
+                    this.mazeData[iii][jjj] = mazeIterator.next();
                 }
             }
 
@@ -97,7 +97,6 @@ public class Maze {
             exception.printStackTrace();
         }
 
-        return maze;
     }
 
 }

@@ -7,40 +7,41 @@ public class Position {
 
 
     public Position(int x, int y){
-        //TODO construcor method
+        this.x = x;
+        this.y = y;
     }
 
     public int getX(){
-        // TODO accessor for X position
-        return 10;
+        return this.x;
     }
 
     public int getY(){
-        // TODO accessor for Y position
-        return 10;
+        return this.y;
     }
 
     public Position getPosToSouth(){
-        // TODO method to get pos south
-        return new Position(1,1);
+        Position south = new Position(getX(), getY()-1);
+        return south;
     }
 
     public Position getPosToNorth(){
-        //TODO method to get pos north
-        return new Position(1,1);
+        Position north = new Position(getX(), getY()+1);
+        return north;
     }
 
     public Position getPosWest(){
-        //TODO method to get pos west
-        return new Position(1,1);
+        Position west = new Position(getX()+1, getY());
+        return west;
     }
 
     public Position getPosEast(){
-        //TODO method to get pos east
-        return new Position(1,1);
+        Position east = new Position(getX()-1, getY());
+        return east;
     }
 
     public boolean equals(Object o){
+        Position other = (Position) o;
+        if (this.getX() == other.getX())
         //TODO method to compare two Positions Objects
         return false;
     }
