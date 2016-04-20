@@ -21,6 +21,8 @@ public class MazeApp {
 
         Maze myMaze;
         myMaze = new Maze(b);
+        System.out.print(myMaze.toString());
+
 
 
 

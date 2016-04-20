@@ -5,44 +5,45 @@
 import java.io.IOException;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Maze {
 
-    private String mazeData;
 
+    public int rows = 0;
+    public int columns = 0;
+    public Character[][] maze;
+    private Character[][] mazeData;
+
+    private int total = 0;
+
+
+    /**
+     * constructor method for Maze
+     * @param in java.io.Reader
+     */
     public Maze(java.io.Reader in){
-        //TODO constructor method for Maze
-        // TODO file read
 
-        try
-        {
-            int ch;
-            ArrayList<Character> buffer = new ArrayList<Character>();
-            int total = 0;
-            int rows = 0;
+        this.mazeData = readMaze(in);
 
-            while ((ch = in.read()) != -1) {
-                char character = (char) ch;
-                if (ch == 10) {
-                    System.out.println(character);
-                    rows++;
-                } else {
-                    total++;
-                    buffer.add(character);
-                    System.out.print(character);
-                }
+    }
 
+    /**
+     * toString override for Maze
+     * @return
+     */
+    public String toString(){
+
+        StringBuilder output = new StringBuilder();
+        output.append("\n");
+        for (int iii = 0; iii < rows; iii++){
+            for (int jjj = 0; jjj < columns; jjj++){
+                output.append(this.mazeData[iii][jjj]);
             }
-            System.out.printf("This maze has %d rows and %d columns ", rows, total/rows);
-
+            output.append("\n");
         }
-        catch (IOException exception)
-        {
-            exception.printStackTrace();
-        }
-        
 
-
+        return output.toString();
     }
 
     public boolean isMovable(Position position){
@@ -58,6 +59,45 @@ public class Maze {
     public Position getStartPosition(){
         //TODO method to
         return new Position(1,1);
+    }
+
+    private Character[][] readMaze(java.io.Reader in){
+        try
+        {
+            int ch;
+            ArrayList<Character> buffer = new ArrayList<Character>();
+
+
+            while ((ch = in.read()) != -1) {
+                char character = (char) ch;
+                if (ch == 10) {
+                    rows++;
+                } else {
+                    total++;
+                    buffer.add(character);
+                }
+
+            }
+
+            columns = total/rows;
+
+            Iterator<Character> mazeIterator = buffer.iterator();
+            maze = new Character[rows][columns];
+
+            for (int iii = 0; iii < rows; iii++){
+                for (int jjj = 0; jjj < columns; jjj++){
+                    maze[iii][jjj] = mazeIterator.next();
+                }
+            }
+
+
+        }
+        catch (IOException exception)
+        {
+            exception.printStackTrace();
+        }
+
+        return maze;
     }
 
 }
