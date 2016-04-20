@@ -47,12 +47,14 @@ public class Maze {
     }
 
     public boolean isMovable(Position position){
-        //TODO method to check if a position is possible
+        if(mazeData[position.getX()][position.getY()] == 32)
+            return true;
         return false;
     }
 
     public boolean isGoal(Position position){
-        //TODO method to check if a position is the goal
+        if(mazeData[position.getX()][position.getY()] == 39 )
+            return true;
         return false;
     }
 

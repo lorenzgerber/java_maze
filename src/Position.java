@@ -41,15 +41,13 @@ public class Position {
 
     public boolean equals(Object o){
         Position other = (Position) o;
-        if (this.getX() == other.getX())
-        //TODO method to compare two Positions Objects
+        if (this.getX() == other.getX() && this.getY() == other.getY())
+            return true;
         return false;
     }
 
     public int hashCode(){
-        //TODO hashcode method???
-        return 10;
+        return (int) this.getX() + this.getY();
     }
-
 
 }
