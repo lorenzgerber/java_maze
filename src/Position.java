@@ -34,13 +34,13 @@ public class Position {
         return north;
     }
 
-    public Position getPosWest()
+    public Position getPosToWest()
     {
         Position west = new Position(getX()+1, getY());
         return west;
     }
 
-    public Position getPosEast()
+    public Position getPosToEast()
     {
         Position east = new Position(getX()-1, getY());
         return east;

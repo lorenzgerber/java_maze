@@ -25,6 +25,13 @@ public class MazeApp {
 
         RightHandRuleRobot myRobot = new RightHandRuleRobot(myMaze);
 
+        for(int path = 0; path < 10; path++)
+        {
+            myRobot.move();
+            System.out.print(myRobot.getCurrentPosition().toString());
+        }
+
+
 
 
 

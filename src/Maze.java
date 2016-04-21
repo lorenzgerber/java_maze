@@ -57,7 +57,7 @@ public class Maze
 
     public boolean isMovable(Position position)
     {
-        if(mazeData[position.getX()][position.getY()] == 32)
+        if(mazeData[position.getX()][position.getY()] != 42)
             return true;
         return false;
     }
@@ -69,13 +69,20 @@ public class Maze
         return false;
     }
 
+    public boolean isWall(Position position)
+    {
+        if(mazeData[position.getX()][position.getY()] == 42)
+            return true;
+        return false;
+    }
+
     public Position getStartPosition() throws IllegalArgumentException
     {
 
         for (int iii = 0; iii < rows; iii++){
             for (int jjj = 0; jjj < columns; jjj++){
                 if (mazeData[iii][jjj] == 83)
-                    return new Position(iii, jjj);
+                    return new Position(jjj, iii);
 
             }
 
