@@ -3,7 +3,6 @@
  */
 
 import java.io.IOException;
-import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -12,10 +11,8 @@ public class Maze {
 
     public int rows = 0;
     public int columns = 0;
-    public Character[][] maze;
+    public Position start;
     private Character[][] mazeData;
-
-    private int total = 0;
 
 
     /**
@@ -59,8 +56,17 @@ public class Maze {
     }
 
     public Position getStartPosition(){
-        //TODO method to
-        return new Position(1,1);
+
+        for (int iii = 0; iii < rows; iii++){
+            for (int jjj = 0; jjj < columns; jjj++){
+                if (mazeData[iii][jjj] == 51)
+                    return new Position(iii, jjj);
+
+            }
+
+        }
+
+        return new Position(0,0);
     }
 
     private void readMaze(java.io.Reader in){
@@ -75,13 +81,12 @@ public class Maze {
                 if (ch == 10) {
                     this.rows++;
                 } else {
-                    this.total++;
                     buffer.add(character);
                 }
 
             }
 
-            this.columns = this.total/this.rows;
+            this.columns = buffer.size()/this.rows;
 
             Iterator<Character> mazeIterator = buffer.iterator();
             this.mazeData = new Character[this.rows][this.columns];
