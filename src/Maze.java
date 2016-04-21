@@ -6,12 +6,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Maze {
+public class Maze
+{
 
 
-    public int rows = 0;
-    public int columns = 0;
-    public Position start;
+    private int rows = 0;
+    private int columns = 0;
+    private Position start;
     private Character[][] mazeData;
 
 
@@ -19,17 +20,28 @@ public class Maze {
      * constructor method for Maze
      * @param in java.io.Reader
      */
-    public Maze(java.io.Reader in){
+    public Maze(java.io.Reader in)
+    {
 
         readMaze(in);
-
+        try
+        {
+            getStartPosition();
+        }
+        catch (IllegalArgumentException exception)
+        {
+            System.out.println(exception.getMessage());
+        }
     }
+
+
 
     /**
      * toString override for Maze
      * @return
      */
-    public String toString(){
+    public String toString()
+    {
 
         StringBuilder output = new StringBuilder();
         output.append("\n");
@@ -43,44 +55,50 @@ public class Maze {
         return output.toString();
     }
 
-    public boolean isMovable(Position position){
+    public boolean isMovable(Position position)
+    {
         if(mazeData[position.getX()][position.getY()] == 32)
             return true;
         return false;
     }
 
-    public boolean isGoal(Position position){
-        if(mazeData[position.getX()][position.getY()] == 39 )
+    public boolean isGoal(Position position)
+    {
+        if(mazeData[position.getX()][position.getY()] == 71 )
             return true;
         return false;
     }
 
-    public Position getStartPosition(){
+    public Position getStartPosition() throws IllegalArgumentException
+    {
 
         for (int iii = 0; iii < rows; iii++){
             for (int jjj = 0; jjj < columns; jjj++){
-                if (mazeData[iii][jjj] == 51)
+                if (mazeData[iii][jjj] == 83)
                     return new Position(iii, jjj);
 
             }
 
         }
 
-        return new Position(0,0);
+        throw new IllegalArgumentException("maze has no start position");
     }
 
-    private void readMaze(java.io.Reader in){
+    private void readMaze(java.io.Reader in)
+    {
         try
         {
             int ch;
             ArrayList<Character> buffer = new ArrayList<Character>();
 
 
-            while ((ch = in.read()) != -1) {
+            while ((ch = in.read()) != -1)
+            {
                 char character = (char) ch;
                 if (ch == 10) {
                     this.rows++;
-                } else {
+                } else
+                {
                     buffer.add(character);
                 }
 
@@ -91,8 +109,10 @@ public class Maze {
             Iterator<Character> mazeIterator = buffer.iterator();
             this.mazeData = new Character[this.rows][this.columns];
 
-            for (int iii = 0; iii < this.rows; iii++){
-                for (int jjj = 0; jjj < this.columns; jjj++){
+            for (int iii = 0; iii < this.rows; iii++)
+            {
+                for (int jjj = 0; jjj < this.columns; jjj++)
+                {
                     this.mazeData[iii][jjj] = mazeIterator.next();
                 }
             }

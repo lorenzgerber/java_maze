@@ -6,43 +6,65 @@ public class Position {
     private int y;
 
 
-    public Position(int x, int y){
+    public Position(int x, int y)
+    {
         this.x = x;
         this.y = y;
     }
 
-    public int getX(){
+    public int getX()
+    {
         return this.x;
     }
 
-    public int getY(){
+    public int getY()
+    {
         return this.y;
     }
 
-    public Position getPosToSouth(){
+    public Position getPosToSouth()
+    {
         Position south = new Position(getX(), getY()-1);
         return south;
     }
 
-    public Position getPosToNorth(){
+    public Position getPosToNorth()
+    {
         Position north = new Position(getX(), getY()+1);
         return north;
     }
 
-    public Position getPosWest(){
+    public Position getPosWest()
+    {
         Position west = new Position(getX()+1, getY());
         return west;
     }
 
-    public Position getPosEast(){
+    public Position getPosEast()
+    {
         Position east = new Position(getX()-1, getY());
         return east;
     }
 
-    public boolean equals(Object o){
+    public String toString()
+    {
+        StringBuilder output = new StringBuilder();
+        output.append("\n position: ");
+        output.append(this.getX());
+        output.append(" / ");
+        output.append(this.getY());
+        output.append("\n");
+
+        return output.toString();
+    }
+
+    public boolean equals(Object o)
+    {
         Position other = (Position) o;
         if (this.getX() == other.getX() && this.getY() == other.getY())
+        {
             return true;
+        }
         return false;
     }
 

@@ -1,29 +1,33 @@
 /**
  * Created by loge on 13/04/16.
  */
-public class Robot {
+public abstract class Robot
+{
     private Position position;
     protected Maze maze;
 
-    public Robot(Maze maze){
-        //TODO Robot constructor
+    public Robot(Maze maze)
+    {
+        this.maze = maze;
+        this.position = maze.getStartPosition();
+
     }
 
-    public void move(){
-
-    }
+    public abstract void move();
 
     public Position getCurrentPosition(){
-        // TODO get current position of the robot
-        return new Position(1,1);
+        return this.position;
     }
 
     protected void setCurrentPosition(Position position){
-        // TODO set current position of the robot
+        this.position = position;
     }
 
     public boolean hasReachedGoal(){
-        //TODO check if robot reached goal
+        if(maze.isGoal(this.position))
+        {
+            return true;
+        }
         return false;
     }
 

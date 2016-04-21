@@ -23,6 +23,8 @@ public class MazeApp {
         myMaze = new Maze(b);
         System.out.print(myMaze.toString());
 
+        RightHandRuleRobot myRobot = new RightHandRuleRobot(myMaze);
+
 
 
 

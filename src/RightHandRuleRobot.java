@@ -3,13 +3,15 @@
  */
 public class RightHandRuleRobot extends Robot {
 
-    public RightHandRuleRobot(Maze maze){
+    public RightHandRuleRobot(Maze maze)
+    {
         super(maze);
 
     }
 
-    public void move(){
-        //TODO algorithm for move Right hand rule
+    public void move()
+    {
+
     }
 
 }
