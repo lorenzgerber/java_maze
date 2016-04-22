@@ -24,25 +24,29 @@ public class Position {
 
     public Position getPosToSouth()
     {
-        Position south = new Position(getX(), getY()-1);
+        Position south = new Position(getX(), getY()+1);
         return south;
+
+
     }
 
     public Position getPosToNorth()
     {
-        Position north = new Position(getX(), getY()+1);
+        Position north = new Position(getX(), getY()-1);
         return north;
+
+
     }
 
     public Position getPosToWest()
     {
-        Position west = new Position(getX()+1, getY());
+        Position west = new Position(getX()-1, getY());
         return west;
     }
 
     public Position getPosToEast()
     {
-        Position east = new Position(getX()-1, getY());
+        Position east = new Position(getX()+1, getY());
         return east;
     }
 

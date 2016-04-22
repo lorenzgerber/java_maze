@@ -1,12 +1,10 @@
 /**
  * Created by loge on 16/04/16.
  */
-import java.io.File;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.util.Scanner;
+
 
 
 
@@ -25,7 +23,7 @@ public class MazeApp {
 
         RightHandRuleRobot myRobot = new RightHandRuleRobot(myMaze);
 
-        for(int path = 0; path < 10; path++)
+        for(int path = 0; path < 50; path++)
         {
             myRobot.move();
             System.out.print(myRobot.getCurrentPosition().toString());

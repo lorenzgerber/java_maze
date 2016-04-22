@@ -57,22 +57,29 @@ public class Maze
 
     public boolean isMovable(Position position)
     {
-        if(mazeData[position.getX()][position.getY()] != 42)
+        if(mazeData[position.getY()][position.getX()] != 42)
             return true;
         return false;
     }
 
     public boolean isGoal(Position position)
     {
-        if(mazeData[position.getX()][position.getY()] == 71 )
+        if(mazeData[position.getY()][position.getX()] == 71 )
             return true;
         return false;
     }
 
     public boolean isWall(Position position)
     {
-        if(mazeData[position.getX()][position.getY()] == 42)
-            return true;
+        try
+        {
+            if (mazeData[position.getY()][position.getX()] == 42)
+                return true;
+        }
+        catch (ArrayIndexOutOfBoundsException e)
+        {
+                return true;
+        }
         return false;
     }
 

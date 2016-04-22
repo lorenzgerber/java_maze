@@ -14,7 +14,38 @@ public class RightHandRuleRobot extends Robot
 
     }
 
-    private void moveGrid(int moveDir) throws IllegalArgumentException
+    public void move() throws IllegalArgumentException
+    {
+        if(this.maze.isGoal(this.getCurrentPosition()))
+        {
+            System.out.println("FINISHED");
+            return;
+        }
+        if (movableDirection(this.direction)){
+            moveDirection(this.direction);
+            if (!wallDirection((this.direction + 1) % 4 )){
+                this.direction = (this.direction + 1) % 4 ;
+                moveDirection(this.direction);
+            }
+        } else
+        {
+            if((this.direction - 1) % 4 < 0)
+            {
+                this.direction = ((this.direction - 1) % 4) + 4;
+            } else {
+                this.direction = (this.direction - 1) % 4;
+            }
+
+            /*moveDirection(this.direction);
+            if(!wallDirection((this.direction + 1) % 4)){
+                this.direction = (this.direction +1) % 4;
+                moveDirection(this.direction);
+            }*/
+        }
+    }
+    
+
+    private void moveDirection(int moveDir) throws IllegalArgumentException
     {
         switch (moveDir)
         {
@@ -36,7 +67,7 @@ public class RightHandRuleRobot extends Robot
 
     }
 
-    private boolean wallGrid(int checkDir) throws IllegalArgumentException
+    private boolean wallDirection(int checkDir) throws IllegalArgumentException
     {
         switch (checkDir)
         {
@@ -52,7 +83,7 @@ public class RightHandRuleRobot extends Robot
         throw new IllegalArgumentException("input argument needs to be brom 1 - 4");
     }
 
-    private boolean movableGrid(int checkDir) throws IllegalArgumentException
+    private boolean movableDirection(int checkDir) throws IllegalArgumentException
     {
         switch (checkDir)
         {
@@ -68,28 +99,6 @@ public class RightHandRuleRobot extends Robot
         throw new IllegalArgumentException("input argument needs to be brom 1 - 4");
     }
 
-
-
-
-
-    public void move() throws IllegalArgumentException
-    {
-        if (movableGrid(this.direction)){
-            moveGrid(this.direction);
-            if (!wallGrid(this.direction +1 )){
-                this.direction = (this.direction + 1) % 4 ;
-                moveGrid(this.direction);
-            }
-        } else
-        {
-            this.direction = (this.direction - 1) % 4;
-            moveGrid(this.direction);
-            if(!wallGrid(this.direction +1)){
-                this.direction = (this.direction +1) % 4;
-                moveGrid(this.direction);
-            }
-        }
-    }
 
     private void setInitialDirection(){
         Position now = this.getCurrentPosition();
@@ -115,6 +124,7 @@ public class RightHandRuleRobot extends Robot
             this.direction = 3;
         }
     }
+
 
 }
 
