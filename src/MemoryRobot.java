@@ -3,7 +3,6 @@
  */
 
 import java.util.Stack;
-import java.util.Collections;
 import java.util.HashMap;
 
 public class MemoryRobot extends Robot {
@@ -21,29 +20,84 @@ public class MemoryRobot extends Robot {
 
 
     public void move(){
-        //TODO algorithm for memory robot, depth first search
-    }
 
-    private Position nextPosition(){
-        boolean north = this.maze.isMovable(this.getCurrentPosition().getPosToNorth());
-        boolean east = this.maze.isMovable(this.getCurrentPosition().getPosToEast());
-        boolean south = this.maze.isMovable(this.getCurrentPosition().getPosToSouth());
-        boolean west = this.maze.isMovable(this.getCurrentPosition().getPosToSouth());
+        try
+        {
+            if(this.maze.isMovable(this.getCurrentPosition().getPosToNorth()))
+            {
+                if(!positionHistory.containsKey(this.getCurrentPosition().getPosToNorth().hashCode()))
+                {
+                    backtrack.push(this.getCurrentPosition());
+                    this.setCurrentPosition(getCurrentPosition().getPosToNorth());
+                    positionHistory.put(this.getCurrentPosition().hashCode(),this.getCurrentPosition());
+                    return;
+                }
 
-        //TODO if north movable
-        if (north){
-            positionHistory.containsKey(this.getCurrentPosition().getPosToNorth().hashCode());
-            positionHistory.put(this.getCurrentPosition().hashCode(),this.getCurrentPosition());
-
+            }
+        } catch (ArrayIndexOutOfBoundsException e)
+        {
+            System.out.println("to the north, end of area");
         }
-        //TODO mark current position
-        //TODO put current position on stack
 
 
-        //TODO if no position possible
-        //TODO pop stack and move to popped position
 
-        return this.getCurrentPosition();
+        try
+        {
+            if(this.maze.isMovable(this.getCurrentPosition().getPosToEast()))
+            {
+                if(!positionHistory.containsKey(this.getCurrentPosition().getPosToEast().hashCode()))
+                {
+                    backtrack.push(this.getCurrentPosition());
+                    this.setCurrentPosition(getCurrentPosition().getPosToEast());
+                    positionHistory.put(this.getCurrentPosition().hashCode(),this.getCurrentPosition());
+                    return;
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e)
+        {
+            System.out.println("to the east, end of area");
+        }
+
+
+
+        try
+        {
+            if(this.maze.isMovable(this.getCurrentPosition().getPosToSouth()))
+            {
+                if(!positionHistory.containsKey(this.getCurrentPosition().getPosToSouth().hashCode()))
+                {
+                    backtrack.push(this.getCurrentPosition());
+                    this.setCurrentPosition(getCurrentPosition().getPosToSouth());
+                    positionHistory.put(this.getCurrentPosition().hashCode(),this.getCurrentPosition());
+                    return;
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e)
+        {
+            System.out.println("to the south, end of area");
+        }
+
+        try
+        {
+            if(this.maze.isMovable(this.getCurrentPosition().getPosToWest()))
+            {
+                if(!positionHistory.containsKey(this.getCurrentPosition().getPosToWest().hashCode()))
+                {
+                    backtrack.push(this.getCurrentPosition());
+                    this.setCurrentPosition(getCurrentPosition().getPosToWest());
+                    positionHistory.put(this.getCurrentPosition().hashCode(),this.getCurrentPosition());
+                    return;
+                }
+            }
+        } catch (ArrayIndexOutOfBoundsException e)
+        {
+            System.out.println("to the west, end of area");
+        }
+
+
+        // if there is no way to move, backtrack one step
+        this.setCurrentPosition(backtrack.peek());
+        this.backtrack.pop();
 
     }
 

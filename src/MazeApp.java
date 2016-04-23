@@ -21,18 +21,19 @@ public class MazeApp {
         myMaze = new Maze(b);
         System.out.print(myMaze.toString());
 
-        RightHandRuleRobot myRobot = new RightHandRuleRobot(myMaze);
+        //RightHandRuleRobot myRobot = new RightHandRuleRobot(myMaze);
+        MemoryRobot myRobot = new MemoryRobot(myMaze);
 
-        for(int path = 0; path < 50; path++)
+        for(int path = 0; path < 80; path++)
         {
             myRobot.move();
             System.out.print(myRobot.getCurrentPosition().toString());
+            if(myRobot.hasReachedGoal())
+            {
+                System.out.println("GOAL");
+                break;
+            }
         }
-
-
-
-
-
 
     }
 
