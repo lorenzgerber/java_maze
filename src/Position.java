@@ -73,7 +73,7 @@ public class Position {
     }
 
     public int hashCode(){
-        return (int) this.getX() + this.getY();
+        return (int) this.getX() + 9999 +  this.getY();
     }
 
 }

@@ -16,17 +16,26 @@ public class RightHandRuleRobot extends Robot
 
     public void move() throws IllegalArgumentException
     {
+        /*
         if(this.maze.isGoal(this.getCurrentPosition()))
         {
-            System.out.println("FINISHED");
+            System.out.println("GOAL");
             return;
         }
+        */
         if (movableDirection(this.direction)){
             moveDirection(this.direction);
-            if (!wallDirection((this.direction + 1) % 4 )){
-                this.direction = (this.direction + 1) % 4 ;
-                moveDirection(this.direction);
+
+            // if current position is goal don't move more
+            // otherwise, handle the right turn
+            if(!this.maze.isGoal(this.getCurrentPosition())){
+                if (!wallDirection((this.direction + 1) % 4 )){
+                    this.direction = (this.direction + 1) % 4 ;
+                    moveDirection(this.direction);
+                }
             }
+
+
         } else
         {
             if((this.direction - 1) % 4 < 0)
@@ -35,12 +44,6 @@ public class RightHandRuleRobot extends Robot
             } else {
                 this.direction = (this.direction - 1) % 4;
             }
-
-            /*moveDirection(this.direction);
-            if(!wallDirection((this.direction + 1) % 4)){
-                this.direction = (this.direction +1) % 4;
-                moveDirection(this.direction);
-            }*/
         }
     }
     
@@ -85,18 +88,27 @@ public class RightHandRuleRobot extends Robot
 
     private boolean movableDirection(int checkDir) throws IllegalArgumentException
     {
-        switch (checkDir)
+        try
         {
-            case 0:
-                return maze.isMovable(this.getCurrentPosition().getPosToNorth());
-            case 1:
-                return maze.isMovable(this.getCurrentPosition().getPosToEast());
-            case 2:
-                return maze.isMovable(this.getCurrentPosition().getPosToSouth());
-            case 3:
-                return maze.isMovable(this.getCurrentPosition().getPosToWest());
+            switch (checkDir)
+            {
+                case 0:
+                    return maze.isMovable(this.getCurrentPosition().getPosToNorth());
+                case 1:
+                    return maze.isMovable(this.getCurrentPosition().getPosToEast());
+                case 2:
+                    return maze.isMovable(this.getCurrentPosition().getPosToSouth());
+                case 3:
+                    return maze.isMovable(this.getCurrentPosition().getPosToWest());
+                default:
+                throw new IllegalArgumentException("input argument needs to be brom 1 - 4");
+            }
+
         }
-        throw new IllegalArgumentException("input argument needs to be brom 1 - 4");
+        catch(ArrayIndexOutOfBoundsException e)
+        {
+            return false;
+        }
     }
 
 
