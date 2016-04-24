@@ -8,35 +8,77 @@ import java.io.FileNotFoundException;
 
 
 
-public class MazeApp {
+public class MazeApp
+{
 
     public static void main( String[] args ) throws FileNotFoundException
     {
-        //File inputFile = new File(args[0]);
-        FileReader in = new FileReader(args[0]);
+
+
+        // Loading and initializing the maze
+        final int ROUNDS = 80;
+        int rhrRobotCounter = 0;
+        int memRobotCounter = 0;
+
         BufferedReader b;
         b = new BufferedReader(new FileReader(args[0]));
 
         Maze myMaze;
         myMaze = new Maze(b);
-        System.out.print(myMaze.toString());
 
-        //RightHandRuleRobot myRobot = new RightHandRuleRobot(myMaze);
-        MemoryRobot myRobot = new MemoryRobot(myMaze);
 
-        for(int path = 0; path < 80; path++)
+        // Creating the Robots
+        RightHandRuleRobot rhrRobot = new RightHandRuleRobot(myMaze);
+        MemoryRobot memRobot = new MemoryRobot(myMaze);
+
+
+
+        // Running the competition
+        for (int path = 0; path < ROUNDS; path++)
         {
-            myRobot.move();
-            System.out.print(myRobot.getCurrentPosition().toString());
-            if(myRobot.hasReachedGoal())
+            if (!rhrRobot.hasReachedGoal())
             {
-                System.out.println("GOAL");
-                break;
+                rhrRobotCounter++;
+                rhrRobot.move();
+            }
+
+            if (!memRobot.hasReachedGoal())
+            {
+                memRobotCounter++;
+                memRobot.move();
             }
         }
 
-    }
 
+        // Evaluating the Competition
+        if (rhrRobot.hasReachedGoal())
+        {
+            System.out.printf("Right Hand Rule Robot has reached goal in %d moves\n", rhrRobotCounter);
+        } else {
+            System.out.printf("Right Hand Rule Robot did not reach the goal in %d moves\n", ROUNDS);
+        }
+
+        if (memRobot.hasReachedGoal())
+        {
+            System.out.printf("Memory Robot has reached goal in %d moves\n", memRobotCounter);
+        } else
+        {
+            System.out.printf("Memory Robot did not reach the goal in %d moves\n", ROUNDS);
+        }
+
+        if (memRobotCounter == rhrRobotCounter)
+        {
+            System.out.println("It's a draw\n");
+        }
+        else if (memRobotCounter < rhrRobotCounter)
+        {
+            System.out.println("The Memory Robot wins\n");
+        } else
+        {
+            System.out.println("The Right Hand Rule Robot wins\n");
+        }
+
+    }
 
 
 }

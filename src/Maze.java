@@ -12,7 +12,6 @@ public class Maze
 
     private int rows = 0;
     private int columns = 0;
-    private Position start;
     private Character[][] mazeData;
 
 
@@ -20,18 +19,13 @@ public class Maze
      * constructor method for Maze
      * @param in java.io.Reader
      */
-    public Maze(java.io.Reader in)
+    public Maze(java.io.Reader in) throws IllegalStateException
     {
 
         readMaze(in);
-        try
-        {
-            getStartPosition();
-        }
-        catch (IllegalArgumentException exception)
-        {
-            System.out.println(exception.getMessage());
-        }
+        getStartPosition();
+        hasGoalPosition();
+
     }
 
 
@@ -83,7 +77,7 @@ public class Maze
         return false;
     }
 
-    public Position getStartPosition() throws IllegalArgumentException
+    public Position getStartPosition() throws IllegalStateException
     {
 
         for (int iii = 0; iii < rows; iii++){
@@ -95,21 +89,58 @@ public class Maze
 
         }
 
-        throw new IllegalArgumentException("maze has no start position");
+        throw new IllegalStateException("maze has no start position");
     }
 
-    private void readMaze(java.io.Reader in)
+    private boolean hasGoalPosition() throws IllegalStateException
+    {
+        for (int iii = 0; iii < rows; iii++){
+            for (int jjj = 0; jjj < columns; jjj++){
+                if (mazeData[iii][jjj] == 71)
+                    return true;
+
+            }
+
+        }
+
+        throw new IllegalStateException("maze has no Goal position");
+
+    }
+
+
+    private void readMaze(java.io.Reader in) throws IllegalArgumentException
     {
         try
         {
-            int ch;
+            int readChar;
+            int checkLengthRow = 0;
+            int lastRowLength = 0;
+
             ArrayList<Character> buffer = new ArrayList<Character>();
 
 
-            while ((ch = in.read()) != -1)
+            while ((readChar = in.read()) != -1)
             {
-                char character = (char) ch;
-                if (ch == 10) {
+                char character = (char) readChar;
+                checkLengthRow++;
+
+                // detect end of row
+                if (readChar == 10) {
+
+                    // check if the rows are of equal length.
+                    // Is not checked in the 0 index row.
+                    if(this.rows != 0){
+                        if(checkLengthRow != lastRowLength){
+                            throw new IllegalArgumentException("Maze rows not of equal length");
+                        } else {
+                            lastRowLength = checkLengthRow;
+                            checkLengthRow = 0;
+                        }
+                    } else {
+                        lastRowLength = checkLengthRow;
+                        checkLengthRow = 0;
+                    }
+
                     this.rows++;
                 } else
                 {
