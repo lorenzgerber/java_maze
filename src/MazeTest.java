@@ -1,9 +1,18 @@
-import org.junit.Test;
+/**
+ *
+ * File:    MazeTest.java
+ * Author:  Lorenz Gerber
+ * Contact: dv15lgr@cs.umu.se
+ * Date:    2016-04-24
+ */
 
+/**
+ * JUnit class to test the Maze Class
+ */
+
+import org.junit.Test;
 import java.io.BufferedReader;
 import java.io.FileReader;
-
-
 
 public class MazeTest {
     @Test

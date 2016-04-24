@@ -1,15 +1,33 @@
 /**
- * Created by loge on 16/04/16.
+ *
+ * File:    MemoryRobot.java
+ * Author:  Lorenz Gerber
+ * Contact: dv15lgr@cs.umu.se
+ * Date:    2016-04-24
  */
 
 import java.util.Stack;
 import java.util.HashMap;
 
+/**
+ * Memory Robot Class is a specialisation of the Robot class
+ * It implements memory behaviour according to a depth-first search
+ * by using a stack and a hash map. The stack is used for
+ * backtracking and the hash map keeps track of already visited
+ * positions.
+ */
 public class MemoryRobot extends Robot {
 
     private Stack<Position> backtrack;
     private HashMap<Integer, Position> positionHistory;
 
+
+    /**
+     * Constructor method for MemoryRobot
+     * Needs a maze object as argument to position
+     * the new Memory Robot object in.
+     * @param maze
+     */
     public MemoryRobot(Maze maze){
         super(maze);
         backtrack = new Stack<Position>();
@@ -18,7 +36,12 @@ public class MemoryRobot extends Robot {
     }
 
 
-
+    /**
+     * Implementation of the move method
+     * Uses a stack and a hash map to implement
+     * depth-first search behaviour. The sequence of checking
+     * for viable move directions is N, E, S, W.
+     */
     public void move(){
 
         try

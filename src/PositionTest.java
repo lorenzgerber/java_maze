@@ -1,6 +1,18 @@
+/**
+ *
+ * File:    PositionTest.java
+ * Author:  Lorenz Gerber
+ * Contact: dv15lgr@cs.umu.se
+ * Date:    2016-04-24
+ */
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+
+/**
+ * JUnit class to test the Position Class
+ */
 public class PositionTest {
     @Test
     public void canCreateNewPosition() throws Exception {

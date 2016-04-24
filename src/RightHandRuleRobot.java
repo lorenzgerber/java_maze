@@ -1,11 +1,31 @@
 /**
- * Created by loge on 16/04/16.
+ *
+ * File:    RightHandRuleRobot.java
+ * Author:  Lorenz Gerber
+ * Contact: dv15lgr@cs.umu.se
+ * Date:    2016-04-24
+ */
+
+/**
+ * RightHandRuleRobot Class is a specialization of
+ * the abstract Robot class that implements a 'right hand
+ * wall following' behaviour for the move method. The robot
+ * translates between the directions N, E, S, W and his own
+ * movement direction which is stored as a private property
+ *
  */
 public class RightHandRuleRobot extends Robot
 {
 
     private int direction = 0;
 
+    /**
+     * Constructor for the RightHandRuleRobot. It
+     * takes a Maze object as argument in which the
+     * new robot object will be placed on the start
+     * position.
+     * @param maze
+     */
     public RightHandRuleRobot(Maze maze)
     {
         super(maze);
@@ -14,6 +34,12 @@ public class RightHandRuleRobot extends Robot
 
     }
 
+    /**
+     * override move method that implements 'right hand
+     * wall following' behaviour.
+     * @throws IllegalArgumentException If the start position of the maze object is
+     * not next to a wall, the robot can not be instantiated.
+     */
     public void move() throws IllegalArgumentException
     {
 
@@ -40,8 +66,15 @@ public class RightHandRuleRobot extends Robot
             }
         }
     }
-    
 
+
+    /**
+     * moveDirection translates from the robot-centric direction to
+     * the directions N E S W by a switch statement. This method executes
+     * the actual move of the robot.
+     * @param moveDir int
+     * @throws IllegalArgumentException moveDir can be 0, 1 , 2 or 3
+     */
     private void moveDirection(int moveDir) throws IllegalArgumentException
     {
         switch (moveDir)
@@ -59,11 +92,19 @@ public class RightHandRuleRobot extends Robot
                 this.setCurrentPosition(getCurrentPosition().getPosToWest());
                 break;
             default:
-                throw new IllegalArgumentException("input argument needs to be brom 1 - 4");
+                throw new IllegalArgumentException("input argument needs to be brom 0 - 3");
         }
 
     }
 
+    /**
+     * wallDirection translates from the robot-centric direction to
+     * the directions N E S W by a switch statement. This method checks whether
+     * there is a wall in the queried direction.
+     * @param checkDir
+     * @return boolean
+     * @throws IllegalArgumentException wallDirection can be 0, 1, 2 or 3
+     */
     private boolean wallDirection(int checkDir) throws IllegalArgumentException
     {
         switch (checkDir)
@@ -77,9 +118,17 @@ public class RightHandRuleRobot extends Robot
             case 3:
                 return maze.isWall(this.getCurrentPosition().getPosToWest());
         }
-        throw new IllegalArgumentException("input argument needs to be brom 1 - 4");
+        throw new IllegalArgumentException("input argument needs to be brom 0 - 3");
     }
 
+    /**
+     * movableDirection translates from the robot-centric direction to
+     * the directions N E S W by a switch statement. This method checks whether
+     * the queried direction is movable for the robot.
+     * @param checkDir
+     * @return boolean
+     * @throws IllegalArgumentException movableDirection can be 0, 1, 2 or 3
+     */
     private boolean movableDirection(int checkDir) throws IllegalArgumentException
     {
         try
@@ -95,7 +144,7 @@ public class RightHandRuleRobot extends Robot
                 case 3:
                     return maze.isMovable(this.getCurrentPosition().getPosToWest());
                 default:
-                throw new IllegalArgumentException("input argument needs to be brom 1 - 4");
+                throw new IllegalArgumentException("input argument needs to be brom 0 - 3");
             }
 
         }
@@ -106,6 +155,12 @@ public class RightHandRuleRobot extends Robot
     }
 
 
+    /**
+     * setInitialDirection is used to set the direction
+     * of the robot at construction time. The sequence of checking for
+     * walls is N, E, S, W. Hence the robot will choose the first viable
+     * wall in reach.
+     */
     private void setInitialDirection(){
         Position now = this.getCurrentPosition();
         boolean north = this.maze.isWall(now.getPosToNorth());
