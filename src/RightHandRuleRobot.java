@@ -16,13 +16,7 @@ public class RightHandRuleRobot extends Robot
 
     public void move() throws IllegalArgumentException
     {
-        /*
-        if(this.maze.isGoal(this.getCurrentPosition()))
-        {
-            System.out.println("GOAL");
-            return;
-        }
-        */
+
         if (movableDirection(this.direction)){
             moveDirection(this.direction);
 

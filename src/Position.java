@@ -26,16 +26,12 @@ public class Position {
     {
         Position south = new Position(getX(), getY()+1);
         return south;
-
-
     }
 
     public Position getPosToNorth()
     {
         Position north = new Position(getX(), getY()-1);
         return north;
-
-
     }
 
     public Position getPosToWest()
