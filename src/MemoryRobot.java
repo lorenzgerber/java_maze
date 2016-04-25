@@ -118,9 +118,13 @@ public class MemoryRobot extends Robot {
         }
 
 
-        // if there is no way to move, backtrack one step
-        this.setCurrentPosition(backtrack.peek());
-        this.backtrack.pop();
+        // if stack is empty, stay were you are and wait until game is over
+        if(!this.backtrack.isEmpty()){
+            // if there is no way to move, backtrack one step
+            this.setCurrentPosition(backtrack.peek());
+            this.backtrack.pop();
+        }
+
 
     }
 
