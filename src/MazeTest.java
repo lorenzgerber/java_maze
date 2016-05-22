@@ -11,38 +11,54 @@
  */
 
 import org.junit.Test;
-import java.io.BufferedReader;
-import java.io.FileReader;
+import org.junit.Assert;
+import java.io.*;
 
 public class MazeTest {
     @Test
     public void canCreateNewMaze() throws Exception {
-        BufferedReader b;
-        b = new BufferedReader(new FileReader("maze1.txt"));
+        StringReader b;
+        String s = "*SG\n***";
+        b = new StringReader(s);
         new Maze(b);
     }
 
     @Test (expected = IllegalStateException.class)
     public void shouldThrowExceptionIfNoStartPosition() throws Exception {
-        BufferedReader b;
-        b = new BufferedReader(new FileReader("mazeNoStart.txt"));
+        StringReader b;
+        String s = "*****\n*****";
+        b = new StringReader(s);
         new Maze(b);
 
     }
 
     @Test (expected = IllegalStateException.class)
     public void shouldThrowExceptionIfNoGoalPosition() throws Exception {
-        BufferedReader b;
-        b = new BufferedReader(new FileReader("mazeNoGoal.txt"));
+        StringReader b;
+        String s = "****S\n*****";
+        b = new StringReader(s);
         new Maze(b);
 
     }
 
     @Test (expected = IllegalArgumentException.class)
     public void shouldThrowExceptionIfUnequalRowLength() throws Exception {
-        BufferedReader b;
-        b = new BufferedReader(new FileReader("mazeVariableRowLength.txt"));
+        StringReader b;
+        String s = "****SG\n*\n**";
+        b = new StringReader(s);
         new Maze(b);
+
+    }
+
+    @Test
+    public void isMovable() {
+        StringReader b;
+        String s = "*SG\n***";
+        b = new StringReader(s);
+        Maze testMaze = new Maze(b);
+        Assert.assertEquals(false, testMaze.isMovable(new Position(0,0)));
+
+
 
     }
 

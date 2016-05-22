@@ -48,7 +48,7 @@ public class RightHandRuleRobot extends Robot
 
             // if current position is goal don't move more
             // otherwise, handle the right turn
-            if(!this.maze.isGoal(this.getCurrentPosition())){
+            if(!this.isGoal(this.getCurrentPosition())){
                 if (!wallDirection((this.direction + 1) % 4 )){
                     this.direction = (this.direction + 1) % 4 ;
                     moveDirection(this.direction);
@@ -65,6 +65,15 @@ public class RightHandRuleRobot extends Robot
                 this.direction = (this.direction - 1) % 4;
             }
         }
+    }
+
+    /**
+     * Method to check whether a position is the Goal
+     * @param checkPosition
+     * @return
+     */
+    private boolean isGoal(Position checkPosition){
+        return this.maze.isGoal(checkPosition);
     }
 
 
