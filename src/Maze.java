@@ -31,7 +31,7 @@ public class Maze
      * constructor method for Maze
      * @param in java.io.Reader
      */
-    public Maze(java.io.Reader in) throws IllegalStateException
+    public Maze(java.io.Reader in) throws IllegalStateException, IOException
     {
         readMaze(in);
         getStartPosition();
@@ -162,10 +162,8 @@ public class Maze
      * @param in java.io.Reader
      * @throws IllegalArgumentException If there are rows of different length.
      */
-    private void readMaze(java.io.Reader in) throws IllegalArgumentException
+    private void readMaze(java.io.Reader in) throws IllegalArgumentException, IOException
     {
-        try
-        {
             int readChar;
             int checkLengthRow = 0;
             int lastRowLength = 0;
@@ -216,12 +214,6 @@ public class Maze
                 }
             }
 
-
-        }
-        catch (IOException exception)
-        {
-            exception.printStackTrace();
-        }
 
     }
 

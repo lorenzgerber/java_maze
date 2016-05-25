@@ -55,9 +55,14 @@ public class MazeTest {
         StringReader b;
         String s = "*SG\n***";
         b = new StringReader(s);
-        Maze testMaze = new Maze(b);
-        Assert.assertEquals(false, testMaze.isMovable(new Position(0,0)));
-
+        try
+        {
+            Maze testMaze = new Maze(b);
+            Assert.assertEquals(false, testMaze.isMovable(new Position(0,0)));
+        }catch(IOException e)
+        {
+            System.out.println("something wrong with the file");
+        }
 
 
     }

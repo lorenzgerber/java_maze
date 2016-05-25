@@ -10,6 +10,7 @@
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 /**
  * MazeApp test program for the classes Maze,
@@ -32,7 +33,7 @@ public class MazeApp
      * @param args textfile that contains a labyrinth
      * @throws FileNotFoundException
      */
-    public static void main( String[] args ) throws FileNotFoundException
+    public static void main( String[] args ) throws FileNotFoundException, IOException
     {
 
 
@@ -51,58 +52,66 @@ public class MazeApp
         b = new BufferedReader(new FileReader(args[0]));
 
         Maze myMaze;
-        myMaze = new Maze(b);
-
-
-        // Creating the Robots
-        RightHandRuleRobot rhrRobot = new RightHandRuleRobot(myMaze);
-        MemoryRobot memRobot = new MemoryRobot(myMaze);
-
-
-
-        // Running the competition
-        for (int path = 0; path < ROUNDS; path++)
+        try
         {
-            if (!rhrRobot.hasReachedGoal())
+            myMaze = new Maze(b);
+
+
+            // Creating the Robots
+            RightHandRuleRobot rhrRobot = new RightHandRuleRobot(myMaze);
+            MemoryRobot memRobot = new MemoryRobot(myMaze);
+
+
+
+            // Running the competition
+            for (int path = 0; path < ROUNDS; path++)
             {
-                rhrRobotCounter++;
-                rhrRobot.move();
+                if (!rhrRobot.hasReachedGoal())
+                {
+                    rhrRobotCounter++;
+                    rhrRobot.move();
+                }
+
+                if (!memRobot.hasReachedGoal())
+                {
+                    memRobotCounter++;
+                    memRobot.move();
+                }
             }
 
-            if (!memRobot.hasReachedGoal())
+
+            // Evaluating the Competition
+            if (rhrRobot.hasReachedGoal())
             {
-                memRobotCounter++;
-                memRobot.move();
+                System.out.printf("Right Hand Rule Robot has reached goal in %d moves\n", rhrRobotCounter);
+            } else {
+                System.out.printf("Right Hand Rule Robot did not reach the goal in %d moves\n", ROUNDS);
             }
+
+            if (memRobot.hasReachedGoal())
+            {
+                System.out.printf("Memory Robot has reached goal in %d moves\n", memRobotCounter);
+            } else
+            {
+                System.out.printf("Memory Robot did not reach the goal in %d moves\n", ROUNDS);
+            }
+
+            if (memRobotCounter == rhrRobotCounter)
+            {
+                System.out.println("It's a draw\n");
+            }
+            else if (memRobotCounter < rhrRobotCounter)
+            {
+                System.out.println("The Memory Robot wins\n");
+            } else
+            {
+                System.out.println("The Right Hand Rule Robot wins\n");
+            }
+
+        } catch(IOException e)
+        {
+            System.out.println("Something wrong with the file");
         }
 
-
-        // Evaluating the Competition
-        if (rhrRobot.hasReachedGoal())
-        {
-            System.out.printf("Right Hand Rule Robot has reached goal in %d moves\n", rhrRobotCounter);
-        } else {
-            System.out.printf("Right Hand Rule Robot did not reach the goal in %d moves\n", ROUNDS);
-        }
-
-        if (memRobot.hasReachedGoal())
-        {
-            System.out.printf("Memory Robot has reached goal in %d moves\n", memRobotCounter);
-        } else
-        {
-            System.out.printf("Memory Robot did not reach the goal in %d moves\n", ROUNDS);
-        }
-
-        if (memRobotCounter == rhrRobotCounter)
-        {
-            System.out.println("It's a draw\n");
-        }
-        else if (memRobotCounter < rhrRobotCounter)
-        {
-            System.out.println("The Memory Robot wins\n");
-        } else
-        {
-            System.out.println("The Right Hand Rule Robot wins\n");
-        }
     }
 }
