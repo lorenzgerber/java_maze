@@ -64,7 +64,7 @@ public class MazeApp
           myMaze = new Maze(b);
         } catch(IOException e)
         {
-            System.out.println("Problem with file reading");
+            System.out.println("Problem reading data from the file");
         }
 
 
