@@ -33,7 +33,7 @@ public class MazeApp
      * @param args textfile that contains a labyrinth
      * @throws IOException
      */
-    public static void main( String[] args ) throws IOException
+    public static void main( String[] args )
     {
 
 
@@ -48,12 +48,26 @@ public class MazeApp
             return;
         }
 
-        BufferedReader b;
-        b = new BufferedReader(new FileReader(args[0]));
+        BufferedReader b = null;
+        try
+        {
+            b = new BufferedReader(new FileReader(args[0]));
+        } catch (FileNotFoundException e)
+        {
+            System.out.println("File not found");
+        }
 
-        Maze myMaze;
 
-        myMaze = new Maze(b);
+        Maze myMaze = null;
+
+        try{
+          myMaze = new Maze(b);
+        } catch(IOException e)
+        {
+            System.out.println("Problem with file reading");
+        }
+
+
 
 
         // Creating the Robots
